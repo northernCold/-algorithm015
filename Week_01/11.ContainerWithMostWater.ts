@@ -41,3 +41,25 @@ function maxArea(height: number[]): number {
 
   return area
 }
+
+/**
+ * @date 0902
+ * @description 双指针
+ * @time O(n)
+ * @space O(1)
+ */
+function maxArea(height: number[]): number {
+  let max = 0;
+  for (let i = 0, j = height.length - 1; i < j;) {
+    let t: number;
+    if (height[i] > height[j]) {
+      t = height[j] * (j - i);
+      j--;
+    } else {
+      t = height[i] * (j - i);
+      i++;
+    }
+    max = Math.max(t, max);
+  }
+  return max;
+};

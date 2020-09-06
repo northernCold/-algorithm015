@@ -16,6 +16,45 @@
  *     }
  * }
  */
+// todo 迭代
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * @date 0902
+ * @description 递归
+ * @time O(n + m)
+ * @space O(n + m)
+ */
+function mergeTwoLists(l1: ListNode | null, l2: ListNode | null): ListNode | null {
+  if (l1 === null) return l2;
+  if (l2 === null) return l1;
+  if (l1.val > l2.val) {
+    l2.next =  mergeTwoLists(l1, l2.next);
+    return l2;
+  } else {
+    l1.next =  mergeTwoLists(l1.next, l2);
+    return l1
+  }
+};
+
+
 // date: [08/27]
 /**
  * method: 递归

@@ -31,3 +31,27 @@ function twoSum(nums: number[], target: number): number[] {
   }
   return [-1, -1]
 };
+
+/**
+ * @Date: 0901
+ * @Description： 哈希表
+ * @time: O(n)
+ * @Space: O(1)
+ */
+
+function twoSum(nums: number[], target: number): number[] {
+  let hash = new Map<number, number>();
+  for (let i = 0; i < nums.length; i++) {
+    hash.set(target - nums[i], i)
+  }
+
+  for (let i = 0; i < nums.length; i++) {
+    if (hash.has(nums[i])) {
+      let j = hash.get(nums[i]);
+      if (i === j) continue;
+      return [i, hash.get(nums[i])]
+    }
+  }
+
+  return [];
+};
