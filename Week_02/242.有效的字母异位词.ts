@@ -27,23 +27,64 @@
 /**
  * 哈希表
  */
+// function isAnagram(s: string, t: string): boolean {
+//   let hash = new Map();
+//   for (let i = 0; i < s.length; i++) {
+//     let c = s[i];
+//     hash.set(c, (hash.has(c) ? hash.get(c) : 0) + 1)
+//   }
+//   for (let i = 0; i < t.length; i++) {
+//     let c = t[i];
+//     if (hash.has(c)) {
+//       let t = hash.get(c);
+//       t > 1 ?  hash.set(c, --t) : hash.delete(c);
+//     } else {
+//       return false;
+//     }
+//   }
+//   return hash.size === 0;
+// };
+
+/**
+ * @date 0908
+ * @description 哈希表
+ * @time O(n)
+ * @space O(n)
+ */
+// function isAnagram(s: string, t: string): boolean {
+//   let hash = new Map<string, number>();
+//   for (let i = 0; i < s.length; i++) {
+//     hash.set(s[i], hash.has(s[i]) ? hash.get(s[i]) as number + 1 : 1);
+//   }
+//   for (let i = 0; i < t.length; i++) {
+//     if (!hash.has(t[i])) return false;
+//     let cnt: number = hash.get(t[i]) as number;
+//     if (cnt > 1) {
+//       hash.set(t[i], --cnt);
+//     } else {
+//       hash.delete(t[i]);
+//     }
+//   }
+//   return hash.size === 0;
+// }
+
+// 改进写法
+interface HashTable {
+  [propName: string]: number;
+}
+
 function isAnagram(s: string, t: string): boolean {
-  let hash = new Map();
+  if (s.length !== t.length) return false; // 优化
+  let hash: HashTable = {} as HashTable;
   for (let i = 0; i < s.length; i++) {
-    let c = s[i];
-    hash.set(c, (hash.has(c) ? hash.get(c) : 0) + 1)
+    hash[s[i]] = (hash[s[i]] || 0) + 1;
   }
   for (let i = 0; i < t.length; i++) {
-    let c = t[i];
-    if (hash.has(c)) {
-      let t = hash.get(c);
-      t > 1 ?  hash.set(c, --t) : hash.delete(c);
-    } else {
-      return false;
-    }
+    if (!hash[t[i]]) return false;
+    hash[t[i]]--;
   }
-  return hash.size === 0;
-};
+  return true;
+}
 
 // @lc code=end
 
