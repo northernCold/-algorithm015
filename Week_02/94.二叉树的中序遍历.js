@@ -41,24 +41,47 @@
 /**
  * 
  */
-function inorderTraversal(root) {
-  if (root === null) return [];
-  let result = [];
-  let stack = [];
-  let cur = root;
+// function inorderTraversal(root) {
+//   if (root === null) return [];
+//   let result = [];
+//   let stack = [];
+//   let cur = root;
 
-  while (cur !== null || stack.length !== 0) {
-    while (cur !== null) {
-      stack.push(cur);
-      cur = cur.left
+//   while (cur !== null || stack.length !== 0) {
+//     while (cur !== null) {
+//       stack.push(cur);
+//       cur = cur.left
+//     }
+//     cur = stack.pop();
+//     result.push(cur.val);
+//     cur = cur.right;
+//   }
+
+//   return result;
+// }
+
+/**
+ * @date 0914
+ * @description 迭代
+ * @time O(n)
+ * @space O(n)
+ */
+  function inorderTraversal(root) {
+    let result = [];
+    let stack = [];
+    let cur = root;
+    while (cur !== null || stack.length !== 0) {
+      while (cur) {
+        stack.push(cur);
+        cur = cur.left;
+      }
+      cur = stack.pop();
+      result.push(cur.val);
+      cur = cur.right;
     }
-    cur = stack.pop();
-    result.push(cur.val);
-    cur = cur.right;
-  }
 
-  return result;
-}
+    return result
+  }
 
 let data = {
   val: 1,

@@ -34,4 +34,3 @@ function topKFrequent(nums: number[], k: number): number[] {
   return freqList.slice(0, k).map(v => v.key);
 };
 // @lc code=end
-
