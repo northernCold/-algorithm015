@@ -3,54 +3,52 @@
  *
  * [51] N皇后
  */
-
 // @lc code=start
 /**
- * 
+ *
  */
-function solveNQueens(n: number): string[][] {
-  let cols = new Set<number>(), rows: number[] = [], main: number[] = [], cross: number[] = [];
-  let result: string[][] = [];
-  const generate = (nums: number[]): string[] => {
-    let result: string[] = [];
-    let str: string = "";
-    for (let i = 0; i < n; i++) {
-      str = "";
-      for (let j = 0; j < n; j++) {
-        str += nums[i] === j ? "Q" : "."
-      }
-      result.push(str);
-    }
+function solveNQueens(n) {
+    var cols = new Set(), rows = [], main = [], cross = [];
+    var result = [];
+    var generate = function (nums) {
+        var result = [];
+        var str = "";
+        for (var i = 0; i < n; i++) {
+            str = "";
+            for (var j = 0; j < n; j++) {
+                str += nums.indexOf(j) > -1 ? "Q" : ".";
+            }
+            result.push(str);
+        }
+        return result;
+    };
+    var dfs = function (row) {
+        if (row === n - 1) {
+            result.push(generate(rows));
+        }
+        for (var i = 0; i < n; i++) {
+            if (!cols.has(i) && !cross[i + row] && !main[i - row + n]) {
+                cols.add(i);
+                rows.push(i);
+                cross[i + row] = 1;
+                main[i - row + n] = 1;
+                dfs(row + 1);
+                cols["delete"](i);
+                rows.pop();
+                cross[i + row] = 0;
+                main[i - row + n] = 0;
+            }
+        }
+    };
+    dfs(0);
     return result;
-  }
-  const dfs = (row: number) => {
-    if (row === n) {
-      result.push(generate(rows));
-    }
-    for (let i = 0; i < n; i++) {
-      if (!cols.has(i) && !cross[i + row] && !main[i - row + n]) {
-        cols.add(i);
-        rows.push(i)
-        cross[i + row] = 1;
-        main[i - row + n] = 1;
-        dfs(row + 1);
-        cols.delete(i);
-        rows.pop();
-        cross[i + row] = 0;
-        main[i - row + n] = 0;
-      }
-    }
-  }
-  dfs(0);
-  return result;
 }
-
+solveNQueens(4)
 // function solveNQueens(n: number): string[][] {
 //   let result: string[][] = [];
 //   let main: number[] = [];
 //   let cross: number[] = [];
 //   let col = new Map<number, number>();
-
 //   const generate = (hash: Map<number, number>) => {
 //     let result: string[] = [];
 //     for (let i = 0; i < n; i++) {
@@ -63,7 +61,6 @@ function solveNQueens(n: number): string[][] {
 //     }
 //     return result;
 //   }
-
 //   const dfs = (row: number) => {
 //     if (row === n) {
 //       result.push(generate(col));
@@ -82,10 +79,8 @@ function solveNQueens(n: number): string[][] {
 //   dfs(0);
 //   return result;
 // };
-
 // 0,0 0,1 0,2 0,3
 // 1,0 1,1 1,2 1,3
 // 2,0 2,1 2,2 2,3
 // 3,0 3,1 3,2 3,3
 // @lc code=end
-
